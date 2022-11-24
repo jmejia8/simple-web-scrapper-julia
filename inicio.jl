@@ -59,7 +59,7 @@ function main()
     texto_obtenido = replace(texto_obtenido, palabras_ignoradas...)
 
     @info "Generado Nube de palabras..."
-    nube_palabras = generate!(wordcloud(texto_obtenido, fonts = ("Arial"), backgroundcolor="white"))
+    nube_palabras = generate!(wordcloud(texto_obtenido, fonts="Tahoma", backgroundcolor="white"))
     paint(nube_palabras, "wordcloud.svg")
 
 
