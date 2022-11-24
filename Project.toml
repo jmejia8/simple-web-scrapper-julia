@@ -8,9 +8,3 @@ Cascadia = "54eefc05-d75b-58de-a785-1a3403f0919f"
 Gumbo = "708ec375-b3d6-5a57-a7ce-8257bf98657a"
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 WordCloud = "6385f0a0-cb03-45b6-9089-4e0acc74b26b"
-
-[compat]
-Cascadia = "1.0.2"
-Gumbo = "1.5.4"
-HTTP = "0.8.2"
-WordCloud = "0.10.7"

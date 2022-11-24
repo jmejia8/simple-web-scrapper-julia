@@ -1,21 +1,14 @@
 # activa el entorno
 # Se sugiere comentar en caso de usar la consola de Julia
+@info "Activando entorno..."
 import Pkg; Pkg.activate(".")
+@info "Instalando dependencias..."
+Pkg.instantiate()
 
+@info "Importando bibliotecas..."
 # importa bibliotecas necesarias
 using HTTP, Gumbo, Cascadia, WordCloud
 
-
-#=
-function obtener_elemento(contenendor)
-
-    d = Dict()
-    for elemento in AbstractTrees.children(contenedor)
-        d[tag(elemento)] = obtener_elemento(elemento)
-    end
-
-end
-=#
 
 
 function main()
@@ -28,7 +21,7 @@ function main()
         println("Revisar que URL esté correcta o tenga acceso a internet")
         return
     end
-    @info "Descargada correctamente"
+    @info "Página descargada correctamente"
     
     # Interpretanto los párrafos
     h = parsehtml(String(r.body))
@@ -51,6 +44,11 @@ function main()
     println("--------------------------------------")
     println(texto_obtenido)
     println("--------------------------------------")
+
+    @info "Guardando archivo TXT"
+    open("texto_pagina.txt", "w") do io
+        println(io, texto_obtenido)
+    end
 
     # convierte en minúsculas
     texto_obtenido = lowercase(texto_obtenido)
