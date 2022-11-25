@@ -9,10 +9,11 @@ Pkg.instantiate()
 # importa bibliotecas necesarias
 using HTTP, Gumbo, Cascadia, WordCloud
 
+include("palabras_frequentes.jl")
 
 
 function main()
-    mi_url = "https://www.uv.mx/prensa/banner/uv-inauguro-xi-foro-internacional-de-estadistica-aplicada/"
+    mi_url = "https://letraslibres.com/politica/los-cinco-errores-del-discurso-sobre-el-gasolinazo/"
     @info "Intentando descargar la página $mi_url"
     # descargar página
     r = HTTP.get(mi_url, status_exception=false)
@@ -50,10 +51,14 @@ function main()
         println(io, texto_obtenido)
     end
 
+    @info "Gráfico: palabras frecuentes"
+    crea_grafico_frecuencias(texto_obtenido)
+
+
     # convierte en minúsculas
     texto_obtenido = lowercase(texto_obtenido)
 
-    palabras_ignoradas = [ "la" , "el", "de", "que", "por", "en", "los" , "las"] .* " " .=> ""
+    palabras_ignoradas = [ "la" , "el", "de", "que", "por", "en", "los" , "las"] .* " " .=> " "
 
     # elimina artículos (el, la, ...)
     texto_obtenido = replace(texto_obtenido, palabras_ignoradas...)
@@ -61,6 +66,7 @@ function main()
     @info "Generado Nube de palabras..."
     nube_palabras = generate!(wordcloud(texto_obtenido, fonts="Tahoma", backgroundcolor="white"))
     paint(nube_palabras, "wordcloud.svg")
+
 
 
 
